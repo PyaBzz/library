@@ -1,0 +1,1 @@
+A simple API for an imaginary library to register and retrieve information about books.
