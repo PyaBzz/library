@@ -13,6 +13,7 @@
         protected static class Message
         {
             public const string required_title = "The Title field is required.";
+            public const string invalid_publication_date = "PublishedOn for Book needs to be a valid date in the past.";
         };
     }
 }

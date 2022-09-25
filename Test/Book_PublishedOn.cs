@@ -1,5 +1,4 @@
 using Core;
-using System.ComponentModel.DataAnnotations;
 using Test;
 
 namespace Unit
@@ -11,6 +10,13 @@ namespace Unit
         {
             Book sut = new Book(dummyTitle, dummyAuthor, tomorrow);
             ModelStateTester.Do(sut, false);
+        }
+
+        [Fact]
+        public void WhenPublishedInvalid_GivesTheRightValidationMessage()
+        {
+            Book sut = new Book(dummyTitle, dummyAuthor, tomorrow);
+            ModelStateTester.Do(sut, false, Message.invalid_publication_date);
         }
 
         [Fact]

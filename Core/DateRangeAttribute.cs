@@ -13,12 +13,21 @@ namespace Core
             fromDate = from == null ? DateTime.MinValue : DateTime.Parse(from);
         }
 
-        public override bool IsValid(object? value)
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
         {
-            if (value == null) return false;
-            if (value is DateTime == false) return false;
+            bool isValid = true;
+            if (value == null) isValid = false;
+            if (value is DateTime == false) isValid = false;
             var date = (DateTime)value;
-            return fromDate <= date && date <= toDate;
+            if (date > toDate)
+                isValid = false;
+            if (date < fromDate)
+                isValid = false;
+
+            if (isValid)
+                return ValidationResult.Success;
+            else
+                return new ValidationResult($"{validationContext.MemberName} for {validationContext.ObjectType.Name} needs to be a valid date in the past.");
         }
     }
 }
