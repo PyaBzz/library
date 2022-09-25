@@ -27,20 +27,27 @@ namespace Unit
         }
 
         [Fact]
-        public void WhenTitleIsEmpty_GivesTheRightValidationMessage()
+        public void WhenTitleIsInvalid_GivesTheRightValidationMessage()
         {
             Book sut = new Book(null, empty, dummyAuthor, yesterday);
             Test_Required_Field(sut, false, Message.required_title);
         }
 
+        [Fact]
+        public void WhenTitleIsNonEmpty_IsValid()
+        {
+            Book sut = new Book(null, dummyTitle, dummyAuthor, yesterday);
+            Test_Required_Field(sut, true);
+        }
+
         //==============================  Private Stuff  ==============================
+
         private readonly string empty = string.Empty;
         private const string space = " ";
         private const string dummyTitle = "dummyTitle";
         private const string dummyAuthor = "dummyAuthor";
         private readonly DateTime yesterday = DateTime.UtcNow.AddDays(-1);
         private readonly DateTime tomorrow = DateTime.UtcNow.AddDays(+1);
-
 
         private void Test_Required_Field(Book sut, bool shouldBeValid = false, string message = null)
         {
