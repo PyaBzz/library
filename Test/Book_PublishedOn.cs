@@ -9,14 +9,14 @@ namespace Unit
         [Fact]
         public void WhenPublishedTomorrow_IsInvalid()
         {
-            Book sut = new Book(null, dummyTitle, dummyAuthor, tomorrow);
+            Book sut = new Book(dummyTitle, dummyAuthor, tomorrow);
             ModelStateTester.Do(sut, false);
         }
 
         [Fact]
         public void WhenPublishedYesterday_IsValid()
         {
-            Book sut = new Book(null, dummyTitle, dummyAuthor, yesterday);
+            Book sut = new Book(dummyTitle, dummyAuthor, yesterday);
             ModelStateTester.Do(sut, true);
         }
     }

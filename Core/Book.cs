@@ -13,12 +13,12 @@ namespace Core
 
         public Book() { }
 
-        public Book(int? id, string title, string author, DateTime publishedOn)
+        public Book(string title, string author, DateTime publishedOn, int? id = null)
         {
-            Id = id;
             Title = title;
             Author = author;
             PublishedOn = publishedOn;
+            Id = id;
         }
     }
 }
