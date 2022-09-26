@@ -9,15 +9,15 @@ namespace Core
         public string Title { get; set; }
         public string Author { get; set; }
         [DateRange]
-        public DateTime PublishedOn { get; set; }
+        public DateTime PublicationDate { get; set; }
 
         public Book() { }
 
-        public Book(string title, string author, DateTime publishedOn, int? id = null)
+        public Book(string title, string author, DateTime publicationDate, int? id = null)
         {
             Title = title;
             Author = author;
-            PublishedOn = publishedOn;
+            PublicationDate = publicationDate;
             Id = id;
         }
     }

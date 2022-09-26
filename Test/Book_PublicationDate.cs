@@ -3,7 +3,7 @@ using Test;
 
 namespace Unit
 {
-    public class Book_PublishedOn : Book_Test
+    public class Book_PublicationDate : Book_Test
     {
         [Fact]
         public void WhenPublishedTomorrow_IsInvalid()
