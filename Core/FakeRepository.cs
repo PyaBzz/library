@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +7,39 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    internal interface IRepository
+    public interface IRepository
     {
         Task<int> Save(Book book);
-        Task<bool> Delete(int id);
         Task<Book> Get(int id);
         Task<IEnumerable<Book>> Get();
+        Task<bool> Delete(int id);
     }
 
-    internal class FakeRepository : IRepository
+    public class FakeRepository : IRepository
     {
-        public Task<bool> Delete(int id)
+        private ConcurrentDictionary<int, Book> books
+            = new ConcurrentDictionary<int, Book>();
+
+        public Task<int> Save(Book book)
         {
-            throw new NotImplementedException();
+            int nextId;
+            var isSuccess = false;
+            do
+            {
+                nextId = books.Count;
+                isSuccess = books.TryAdd(nextId, book);
+                book.Id = nextId;
+            }
+            while (isSuccess == false);
+            return Task.FromResult(nextId);
         }
 
         public Task<Book> Get(int id)
         {
-            throw new NotImplementedException();
+            if (books.ContainsKey(id))
+                return Task.FromResult(books[id]);
+            else
+                return Task.FromResult<Book>(null);
         }
 
         public Task<IEnumerable<Book>> Get()
@@ -31,7 +47,7 @@ namespace Core
             throw new NotImplementedException();
         }
 
-        public Task<int> Save(Book book)
+        public Task<bool> Delete(int id)
         {
             throw new NotImplementedException();
         }
