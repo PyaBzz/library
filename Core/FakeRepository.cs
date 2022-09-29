@@ -17,8 +17,7 @@ namespace Core
 
     public class FakeRepository : IRepository
     {
-        private ConcurrentDictionary<int, Book> books
-            = new ConcurrentDictionary<int, Book>();
+        private ConcurrentDictionary<int, Book> data = new();
 
         public Task<int> Save(Book book)
         {
@@ -26,9 +25,8 @@ namespace Core
             var isSuccess = false;
             do
             {
-                nextId = books.Count;
-                isSuccess = books.TryAdd(nextId, book);
-                book.Id = nextId;
+                nextId = data.Count;
+                isSuccess = data.TryAdd(nextId, book);
             }
             while (isSuccess == false);
             return Task.FromResult(nextId);
@@ -36,10 +34,10 @@ namespace Core
 
         public Task<Book> Get(int id)
         {
-            if (books.ContainsKey(id))
-                return Task.FromResult(books[id]);
+            if (data.ContainsKey(id))
+                return Task.FromResult(data[id]);
             else
-                return Task.FromResult<Book>(null);
+                return Task.FromResult<Book>(default);
         }
 
         public Task<IEnumerable<Book>> Get()
