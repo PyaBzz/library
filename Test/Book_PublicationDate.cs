@@ -13,13 +13,6 @@ namespace Unit
         }
 
         [Fact]
-        public void WhenPublishedInvalid_GivesTheRightValidationMessage()
-        {
-            Book sut = new Book(dummyTitle, dummyAuthor, tomorrow);
-            ModelStateTester.Do(sut, false, Message.invalid_publication_date);
-        }
-
-        [Fact]
         public void WhenPublishedYesterday_IsValid()
         {
             Book sut = new Book(dummyTitle, dummyAuthor, yesterday);

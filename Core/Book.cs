@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Baz.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core
 {
@@ -8,7 +9,7 @@ namespace Core
         [Required]
         public string Title { get; set; }
         public string Author { get; set; }
-        [DateRange]
+        [PastDate]
         public DateTime PublicationDate { get; set; }
 
         public Book() { }

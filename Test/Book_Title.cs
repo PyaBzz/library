@@ -1,6 +1,3 @@
-using Core;
-using Test;
-
 namespace Unit
 {
     public class Book_Title : Book_Test
